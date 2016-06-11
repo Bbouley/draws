@@ -10,6 +10,23 @@
     <h1>{{ title }}</h1>
     <p>Welcome to {{ title }}</p>
 
+  <form>
+   <div class="form-group">
+    <label for="drawDate">Draw Date</label>
+    <input type="date" class="form-control" id="drawDate" placeholder="Draw Date" required>
+  </div>
+
+    <div class="form-group">
+      <label for="cashAmount">Amount</label>
+      <div class="input-group">
+        <div class="input-group-addon">$</div>
+        <input type="number" class="form-control" id="cashAmount" placeholder="Amount" required>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" id="submitDrawAmount">Submit Draw Amount</button>
+  </form>
+
+
   </div>
 
 {% endblock %}

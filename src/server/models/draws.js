@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
-var Schema = new mongoose.Schema;
+var Schema = mongoose.Schema;
 
-var Draw = new Schema ({
+var Draw = new Schema({
     date : Date,
     cashValue : Number,
     totalRecieved : Number,
