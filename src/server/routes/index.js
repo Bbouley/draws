@@ -4,7 +4,9 @@ var mongoose = require('mongoose-q')(require('mongoose'));
 var Draw = require('../models/draws.js');
 
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
+    Draw.find({}, function(err, draws) {
+        res.render('index', { title: 'Lottery Draws', draws : draws});
+    });
 });
 
 router.post('/newdraw', function(req, res, next) {

@@ -8,19 +8,32 @@ $(document).on('ready', function() {
   $('#submitDrawAmount').on('click', function(e) {
     e.preventDefault();
     var cashValue = $('#cashAmount').val();
-    // drawObject.date = $('#drawDate').val();
+    drawObject.date = $('#drawDate').val();
+    drawObject.gameType = $('#gameType').val();
     drawObject.cashValue = parseInt(cashValue);
     var afterTaxValue = takeOutTaxes(+cashValue);
     drawObject.totalRecieved = afterTaxValue;
     drawObject.cashKept = takeHome(afterTaxValue);
     var afterTakeHome = drawObject.totalRecieved - drawObject.cashKept
-    drawObject.stocks = getStocks (afterTakeHome);
+    drawObject.stocks = getStocks(afterTakeHome);
     drawObject.bonds = afterTakeHome - drawObject.stocks;
     var bondReturn = getBondReturn(drawObject.bonds);
-    drawObject.bondsDailyRecieved = bondReturn.dailyValue;
-    drawObject.bondsMonthlyRecieved = parseInt(bondReturn.monthlyValue.toFixed(2));
+    drawObject.bondsDailyReceived = bondReturn.dailyValue;
+    drawObject.bondsMonthlyReceived = parseInt(bondReturn.monthlyValue.toFixed(2));
 
-    console.info(drawObject);
+    var commafiedObject = commafyObject(drawObject);
+
+    $.ajax({
+        type : "POST",
+        url : '/newDraw',
+        data : commafiedObject
+    }).done(function(returnData) {
+        $('#cashAmount').val('');
+        $('#gameType').val('');
+        $('#cashAmount').val('');
+        location.reload();
+    });
+
   });
 
 });
@@ -65,12 +78,28 @@ function getBondReturn (cash) {
         returnObject.dailyValue += 1000;
     }
     returnObject.monthlyValue = (yearReturn/12);
-    if (returnObject.monthlyValue > 40000) {
+    if (returnObject.monthlyValue > 40000 && returnObject.dailyValue < 2000) {
         yearReturn -= 365000;
         returnObject.dailyValue += 1000;
         returnObject.monthlyValue = (yearReturn/12);
     }
 
     return returnObject;
+}
+
+function commafyObject (obj) {
+    var commaObject = {}
+    for (var key in obj) {
+        if (key !== 'date') {
+            commaObject[key] = commafyNumber(obj[key]);
+        } else {
+            commaObject['date'] = obj[key];
+        }
+    }
+    return commaObject;
+}
+
+function commafyNumber (num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
