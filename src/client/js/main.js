@@ -56,7 +56,7 @@ function takeHome (cash) {
         while (cash - 10000000 > 10000000) {
             cash -= 20000000
         }
-        if (cash > 5000000) {
+        if (cash > 10000000) {
             return cash
         } else {
             return cash + 10000000
@@ -74,8 +74,12 @@ function getBondReturn (cash) {
     var returnObject = {};
     returnObject.dailyValue = 0;
     while ((yearReturn - 365000) > 450000) {
-        yearReturn -= 365000;
-        returnObject.dailyValue += 1000;
+        if (returnObject.dailyValue < 5000){
+            yearReturn -= 365000;
+            returnObject.dailyValue += 1000;
+        } else {
+            break
+        }
     }
     returnObject.monthlyValue = (yearReturn/12);
     if (returnObject.monthlyValue > 40000 && returnObject.dailyValue < 2000) {

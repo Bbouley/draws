@@ -33,7 +33,7 @@
 
 
   {% for draw in draws %}
-  <div class = "col-xs-4 drawInfo">
+  <div class = "col-xs-4 drawInfo" id="{{draw.id}}">
     <h3>Game : {{draw.gameType}}</h3>
     <h4>Date : {{draw.date}}</h4>
     <p>Received : ${{draw.totalRecieved}}</p>
