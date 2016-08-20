@@ -5,8 +5,9 @@ var Draw = require('../models/draws.js');
 
 router.get('/', function(req, res, next) {
     Draw.find({}, function(err, draws) {
-        var draws = sortObjectsByDate(draws);
-        res.render('index', { title: 'Lottery Draws', draws : draws});
+        var sortedDraws = sortObjectsByDate(draws);
+        // console.log(sortedDraws);
+        res.render('index', { title: 'Lottery Draws', draws : sortedDraws});
     });
 });
 
@@ -22,9 +23,17 @@ router.post('/newdraw', function(req, res, next) {
 });
 
 function sortObjectsByDate (arrayOfLottery) {
-    return arrayOfLottery.sort(function(a, b) {
-        return a.date < b.date
-    })
+    function compare(a,b) {
+        if (new Date(a.date).getTime() < new Date(b.date).getTime())
+            return -1;
+        if (new Date(a.date).getTime() > new Date(b.date).getTime())
+            return 1;
+        return 0;
+    }
+
+    arrayOfLottery.sort(compare).reverse();
+    console.log(arrayOfLottery);
+    return arrayOfLottery;
 }
 
 module.exports = router;
