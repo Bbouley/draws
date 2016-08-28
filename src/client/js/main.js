@@ -24,7 +24,7 @@ $(document).on('ready', function() {
     var commafiedObject = commafyObject(drawObject);
 
     $.ajax({
-        type : "POST",
+        type : 'POST',
         url : '/newDraw',
         data : commafiedObject
     }).done(function(returnData) {
@@ -35,6 +35,16 @@ $(document).on('ready', function() {
     });
 
   });
+
+  $('.deleteDraw').on('click', function(e) {
+    e.preventDefault;
+    $.ajax({
+        type : "DELETE",
+        url : '/delete/' + e.target.id
+    }).done(function(returnData) {
+        location.reload();
+    })
+  })
 
 });
 

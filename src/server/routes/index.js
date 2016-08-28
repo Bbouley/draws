@@ -6,7 +6,6 @@ var Draw = require('../models/draws.js');
 router.get('/', function(req, res, next) {
     Draw.find({}, function(err, draws) {
         var sortedDraws = sortObjectsByDate(draws);
-        // console.log(sortedDraws);
         res.render('index', { title: 'Lottery Draws', draws : sortedDraws});
     });
 });
@@ -22,6 +21,17 @@ router.post('/newdraw', function(req, res, next) {
     })
 });
 
+router.delete('/delete/:drawid', function(req, res, next) {
+    console.log(req.params.drawid);
+    Draw.findByIdAndRemove(req.params.drawid, function(err, result) {
+        if (err) {
+            res.json({'ERROR' : err});
+        } else {
+            res.json(result);
+        }
+    })
+});
+
 function sortObjectsByDate (arrayOfLottery) {
     function compare(a,b) {
         if (new Date(a.date).getTime() < new Date(b.date).getTime())
@@ -32,7 +42,6 @@ function sortObjectsByDate (arrayOfLottery) {
     }
 
     arrayOfLottery.sort(compare).reverse();
-    console.log(arrayOfLottery);
     return arrayOfLottery;
 }
 

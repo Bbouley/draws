@@ -33,7 +33,7 @@
 
 
   {% for draw in draws %}
-  <div class = "col-xs-4 drawInfo" id="{{draw.id}}">
+  <div class = "col-xs-4 drawInfo col-lg-2" id="{{draw.id}}">
     <h3>Game : {{draw.gameType}}</h3>
     <h4>Date : {{draw.date}}</h4>
     <p>Received : ${{draw.totalRecieved}}</p>
@@ -41,7 +41,8 @@
     <p>Total for Stocks : ${{draw.stocks}}</p>
     <p>Total for Bonds : ${{draw.bonds}}</p>
     <p>Daily From Bonds : ${{draw.bondsDailyReceived}}</p>
-     <p>Monthly From Bonds : ${{draw.bondsMonthlyReceived}}</p>
+    <p>Monthly From Bonds : ${{draw.bondsMonthlyReceived}}</p>
+    <button class="deleteDraw" id="{{draw.id}}">Delete</button>
   </div>
   {% endfor %}
 
