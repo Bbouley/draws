@@ -48,72 +48,97 @@ $(document).on('ready', function() {
 
 });
 
-function takeOutTaxes (cashValue) {
-    return ((cashValue/100) * 70)
+function takeOutTaxes (cashValue)
+{
+    var federalTax = 39.6;
+    var stateTaxCO = 4;
+    return ((cashValue/100) * (federalTax + stateTaxCO));
 }
 
-function takeHome (cash) {
-    if (cash < 100000000) {
-        while (cash - 10000000 > 0) {
+function takeHome (cash)
+{
+    if (cash < 100000000)
+    {
+        while (cash - 10000000 > 0)
+        {
             cash -= 10000000
         }
-        if (cash > 5000000) {
+        if (cash > 5000000)
+        {
             return cash
-        } else {
+        }
+        else
+        {
             return cash + 5000000
         }
-    } else {
-        while (cash - 10000000 > 10000000) {
+    }
+    else
+    {
+        while ((cash - 10000000 > 10000000)
+        {
             cash -= 20000000
         }
-        if (cash > 10000000) {
+        if (cash > 10000000)
+        {
             return cash
-        } else {
+        }
+        else
+        {
             return cash + 10000000
         }
     }
-
 }
 
-function getStocks (cash) {
+function getStocks (cash)
+{
     return ((cash/100) * 60)
 }
 
-function getBondReturn (cash) {
+function getBondReturn (cash)
+{
     var yearReturn = ((cash/100) * 4.5)
     var returnObject = {};
     returnObject.dailyValue = 0;
-    while ((yearReturn - 365000) > 450000) {
-        if (returnObject.dailyValue < 5000){
+    while ((yearReturn - 365000) > 450000)
+    {
+        if (returnObject.dailyValue < 5000)
+        {
             yearReturn -= 365000;
             returnObject.dailyValue += 1000;
-        } else {
+        }
+        else
+        {
             break
         }
     }
     returnObject.monthlyValue = (yearReturn/12);
-    if (returnObject.monthlyValue > 40000 && returnObject.dailyValue < 2000) {
+    if (returnObject.monthlyValue > 40000 && returnObject.dailyValue < 2000)
+    {
         yearReturn -= 365000;
         returnObject.dailyValue += 1000;
         returnObject.monthlyValue = (yearReturn/12);
     }
-
     return returnObject;
 }
 
-function commafyObject (obj) {
+function commafyObject (obj)
+{
     var commaObject = {}
-    for (var key in obj) {
-        if (key !== 'date') {
+    for (var key in obj)
+    {
+        if (key !== 'date')
+        {
             commaObject[key] = commafyNumber(obj[key]);
-        } else {
+        }
+        else
+        {
             commaObject['date'] = obj[key];
         }
     }
     return commaObject;
 }
 
-function commafyNumber (num) {
+function commafyNumber (num)
+{
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
-
