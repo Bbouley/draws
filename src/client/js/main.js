@@ -74,7 +74,7 @@ function takeHome (cash)
     }
     else
     {
-        while ((cash - 10000000 > 10000000)
+        while ((cash - 10000000) > 10000000)
         {
             cash -= 20000000
         }
