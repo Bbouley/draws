@@ -91,12 +91,12 @@ function takeHome (cash)
 
 function getStocks (cash)
 {
-    return ((cash/100) * 60)
+    return ((cash/100) * 70)
 }
 
 function getBondReturn (cash)
 {
-    var yearReturn = ((cash/100) * 4.5)
+    var yearReturn = ((cash/100) * 3)
     var returnObject = {};
     returnObject.dailyValue = 0;
     while ((yearReturn - 365000) > 450000)
