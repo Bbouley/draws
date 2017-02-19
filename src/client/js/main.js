@@ -52,7 +52,7 @@ function takeOutTaxes (cashValue)
 {
     var federalTax = 39.6;
     var stateTaxCO = 4;
-    return ((cashValue/100) * (federalTax + stateTaxCO));
+    return ((cashValue/100) * (100 - (federalTax + stateTaxCO)));
 }
 
 function takeHome (cash)
